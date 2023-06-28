@@ -8,15 +8,15 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     if user&.authenticate(params[:session][:password])
       log_in(user)
-      redirect_to user_path(user.id), notice: 'ログインしました。'
+      redirect_to user_path(user.id), notice: 'Connecté'
     else
-      flash.now[:notice] = 'メールアドレスまたはパスワードが間違っています。'
+      flash.now[:notice] = 'Adresse électronique ou mot de passe incorrect'
       render :new
     end
   end
 
   def destroy
     session.delete(:user_id)
-    redirect_to new_session_path, notice: 'ログアウトしました。'
+    redirect_to new_session_path, notice: 'Déconnecté'
   end
 end
